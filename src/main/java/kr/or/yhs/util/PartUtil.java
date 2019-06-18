@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,18 +38,6 @@ public class PartUtil {
 		return "";
 	}
 	
-	// uuid test
-	@Test
-	public void uuidTest(){
-		
-		/***Given***/
-		
-		/***When***/
-		logger.debug("UUID.randomUUID().toString() : {}", UUID.randomUUID().toString());
-		
-		/***Then***/
-
-	}
 	/**
 	 * 
 	 * Method : getExt

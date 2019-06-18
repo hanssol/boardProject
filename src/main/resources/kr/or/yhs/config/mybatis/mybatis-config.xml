@@ -9,6 +9,7 @@
 		<typeAlias alias="postVo" type="kr.or.yhs.board.model.PostVo"/>
 		<typeAlias alias="boardVo" type="kr.or.yhs.board.model.BoardVo"/>
 		<typeAlias alias="replyVo" type="kr.or.yhs.board.model.ReplyVo"/>
+		<typeAlias alias="fileVo" type="kr.or.yhs.board.model.AttachmentVo"/>
 		<typeAlias alias="userVo" type="kr.or.yhs.user.model.UserVo"/>
 		<typeAlias alias="pageVo" type="kr.or.yhs.paging.model.PageVo"/>
 		
