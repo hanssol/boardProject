@@ -74,7 +74,7 @@ public class LoginController extends HttpServlet {
 		logger.debug("pass : {}",uservo.getPass());
 		
 		
-		if(uservo!=null && userId.equals(uservo.getUserId()) && password.equals(uservo.getPass())){
+		if(uservo!=null && userId.equals(uservo.getUserId()) && encryptPassword.equals(uservo.getPass())){
 //			int cookieMaxAge=0;
 //			if(request.getParameter("rememberme")!=null){
 //				cookieMaxAge =60*60*24*30;
