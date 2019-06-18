@@ -65,6 +65,7 @@ $(document).ready(function(){
 						<form id="frm" action="${pageContext.request.contextPath }/post" method="get"> 
 							<input type="hidden" id="postnum" name="postnum"/>
 							<input type="hidden" id="boardnum" name="boardnum" value="${pageVo.boardnum }"/>
+							
 						</form>
 						
 						<div class="table-responsive">
@@ -75,18 +76,25 @@ $(document).ready(function(){
 									<td>작성자 아이디</td>
 									<td>작성일시</td>
 								</tr>	
-															
-								<c:forEach items="${postList}" var="post">
-								<tr class="postTr">
-									<td class="postnum">${post.postnum}</td>
-									<td style="padding-left:${post.lv}9px">${post.post_title}</td>
-									<td>${post.userid}</td>
-									<td><fmt:formatDate value="${post.postdt}" pattern="yyyy-MM-dd" /></td>
 								
-								</tr>
-									
+								<c:forEach items="${postList}" var="post">
+									<c:choose>
+										<c:when test="${post.use_yn == 'yes' }">
+											<tr class="postTr">
+												<td class="postnum">${post.postnum}</td>
+												<td style="padding-left:${post.lv}9px">${post.post_title}</td>
+												<td>${post.userid}</td>
+												<td><fmt:formatDate value="${post.postdt}" pattern="yyyy-MM-dd" /></td>
+											</tr>
+										</c:when>
+										<c:otherwise>
+											<tr>
+												<td colspan='4'>삭제된 게시글입니다.</td>
+											</tr>
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
-
+									
 							</table>
 						</div>
 

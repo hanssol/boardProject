@@ -23,8 +23,8 @@
 $(document).ready(function(){
 	// 수정하기 버튼
 	$("#editBtn").on("click",function(){
-		$("#frm").attr("action","${pageContext.request.contextPath }/postEdit");
-		$("#frm").attr("method","post");
+		$("#frm").attr("action","${pageContext.request.contextPath }/postModify");
+		$("#frm").attr("method","get");
 		$("#frm").submit();
 	})
 	
@@ -77,6 +77,7 @@ $(document).ready(function(){
 								<input type="hidden" id="postnum2" name="postnum2" value="${postInfo.postnum }"/>
 								<input type="hidden" id="boardnum" name="boardnum" value="${postInfo.boardnum }"/>
 								<input type="hidden" id="userid2" name="userid2" value="${postInfo.userid }"/>
+<%-- 								<input type="text" id="replynum" name="replynum" value="${replyList.replynum }"> --%>
 								
 								
 						
@@ -98,7 +99,9 @@ $(document).ready(function(){
 							<div class="form-group">
 								<label for="userNm" class="col-sm-2 control-label">첨부파일</label>
 								<div class="col-sm-10">
-									<label class="control-label">${postInfo.p_content }</label>
+										<c:forEach items="${fileList}" var="file">
+												<a id="fileDown" href="${pageContext.request.contextPath}/fileDown?attachmentid=${file.attachmentid}" class="btn btn-default"> ${file.attach_name}</a> 
+										</c:forEach>
 								</div>
 							</div>
 							
@@ -110,13 +113,25 @@ $(document).ready(function(){
 											<td>작성자 아이디</td>
 											<td>내용</td>
 											<td>작성일시</td>
+											<td></td>
 										</tr>
 										<c:forEach items="${replyList }" var="reply">
-											<tr>
-												<td>${reply.userid }</td>
-												<td>${reply.r_content }</td>
-												<td>${reply.replydt }</td>
-											</tr>
+											<c:choose>
+												<c:when test="${reply.use_yn == 'yes' }">
+													<tr>
+														<td>${reply.userid }</td>
+														<td>${reply.r_content }</td>
+														<td>${reply.replydt }</td>
+														<td><a id="replyDelete"  onclick="return confirm('정말로 삭제하시겠습니까?')" href="${pageContext.request.contextPath}/replyDelete?replynum=${reply.replynum}&postnum=${reply.postnum}" class="btn btn-default pull-right"> 삭제</a></td>
+													</tr>
+												</c:when>
+												<c:otherwise>
+													<tr>
+														<td colspan='4'>삭제된 댓글입니다.</td>
+													</tr>
+												</c:otherwise>
+											</c:choose>
+											
 										</c:forEach>	
 										
 									</table>

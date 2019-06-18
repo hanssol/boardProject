@@ -35,7 +35,7 @@
 	
 	$(document).ready(function() {
 		
-		var cnt=1;
+		var cnt=0;
 		$("#addFileBtn").on("click",function(){
 			if($('.file').length != 5){
 				cnt = $(".filDiv input").length+1;
@@ -123,6 +123,7 @@
 
 
 								<input type="hidden" name="boardnum" value="${boardnum }">
+								<input type="hidden" name="postnum" value="${postInfo.postnum }">
 								
 
 								<div class="form-group">
@@ -130,7 +131,7 @@
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="post_title"
 											name="post_title" placeholder="제목"
-											value="${param.post_title }">
+											value="${postInfo.post_title }">
 									</div>
 								</div>
 
@@ -140,15 +141,26 @@
 										<input type="hidden" class="form-control" id="userid"
 											name="userid" placeholder="작성자" value=${USER_INFO.userId }>
 										<textarea name="smarteditor" id="smarteditor" rows="10"
-											cols="100" style="width: 766px; height: 412px;"></textarea>
+											cols="100" style="width: 766px; height: 412px;">${postInfo.p_content }</textarea>
 									</div>
 								</div>
+								
+								<c:forEach items="${fileList}" var="file">
+						<div class="col-sm-10">
+							<ul class="fileTr">
+								<li>
+									<a class="file" id="fileDown" href="">${file.attach_name}</a>
+									<a id="fileDelete" onclick="return confirm('정말로 삭제하시겠습니까?')" href="${pageContext.request.contextPath}/fileDelete?attachmentid=${file.attachmentid}&postnum2=${postInfo.postnum}&boardnum=${postInfo.boardnum}" class="btn btn-default pull-right">삭제</a>
+								</li>
+							</ul>
+						</div>
+					</c:forEach>
 
 								<div class="form-group">
 									<label for="userid" class="col-sm-2 control-label">첨부파일</label>
 									<div class="col-sm-8 filDiv">
 										<input multiple="multiple" type="file" class="file" id="profile"
-											name="profile" placeholder="첨부파일">
+											name="profile1" placeholder="첨부파일">
 									</div>
 									<div class="col-sm-2">
 										<button id="addFileBtn" type="button" class="btn btn-default pull-right">파일추가</button>

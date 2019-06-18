@@ -109,4 +109,44 @@
     <servlet-name>AttachmentController</servlet-name>
     <url-pattern>/AttachmentController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PostDelteController</display-name>
+    <servlet-name>PostDelteController</servlet-name>
+    <servlet-class>kr.or.yhs.board.controller.PostDelteController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostDelteController</servlet-name>
+    <url-pattern>/PostDelteController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PostModifyController</display-name>
+    <servlet-name>PostModifyController</servlet-name>
+    <servlet-class>kr.or.yhs.board.controller.PostModifyController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostModifyController</servlet-name>
+    <url-pattern>/PostModifyController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReplyDelteController</display-name>
+    <servlet-name>ReplyDelteController</servlet-name>
+    <servlet-class>kr.or.yhs.board.controller.ReplyDelteController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReplyDelteController</servlet-name>
+    <url-pattern>/ReplyDelteController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AttachmentDeleteController</display-name>
+    <servlet-name>AttachmentDeleteController</servlet-name>
+    <servlet-class>kr.or.yhs.board.controller.AttachmentDeleteController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AttachmentDeleteController</servlet-name>
+    <url-pattern>/AttachmentDeleteController</url-pattern>
+  </servlet-mapping>
 </web-app>
