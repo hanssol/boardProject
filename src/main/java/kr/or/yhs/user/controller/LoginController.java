@@ -70,11 +70,8 @@ public class LoginController extends HttpServlet {
 		String encryptPassword = KISA_SHA256.encrypt(password);
 		
 		UserVo uservo = userService.getUser(userId);
-		logger.debug("id : {}",uservo.getUserId());
-		logger.debug("pass : {}",uservo.getPass());
 		
-		
-		if(uservo!=null && userId.equals(uservo.getUserId()) && encryptPassword.equals(uservo.getPass())){
+		if(uservo!=null && userId.equals(uservo.getUserId()) && password.equals(uservo.getPass())){
 //			int cookieMaxAge=0;
 //			if(request.getParameter("rememberme")!=null){
 //				cookieMaxAge =60*60*24*30;
@@ -97,11 +94,6 @@ public class LoginController extends HttpServlet {
 			List<BoardVo> boardListY = boardService.boardListYes(use_yn);
 			ServletContext sc = request.getServletContext();
 			sc.setAttribute("boardListY", boardListY);
-			
-			
-			
-			
-			
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/board/main.jsp");
 			rd.forward(request, response);

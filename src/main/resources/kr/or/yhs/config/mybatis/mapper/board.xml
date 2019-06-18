@@ -40,10 +40,10 @@
 from
 (SELECT A.*, ROWNUM RN FROM
 		    (SELECT p.*, LPAD(' ', (LEVEL-1)*4) || p.POST_TITLE, LEVEL LV
-		        FROM post p WHERE BOARDNUM = ${boardnum} AND USE_YN = 'yes'
+		        FROM post p WHERE BOARDNUM = ${boardnum}
 		        START WITH POSTNUM2
 		        IS NULL CONNECT BY PRIOR POSTNUM = POSTNUM2
-		        ORDER SIBLINGS BY GROUP_NUM DESC, POSTNUM
+		        ORDER SIBLINGS BY GROUP_NUM DESC, postdt
 		    ) A) B
 	where rn >=(#{page}-1)*#{pageSize} + 1 and rn <=#{page}*#{pageSize}
 		]]>
@@ -80,16 +80,26 @@ from
 		update post set post_title=${post_title},p_content=${p_content} where postnum=#{postnum}
 	</update>
 	
+	<!-- 게시글 삭제 업데이트 -->
+	<update id="deletPost" parameterType="postVo">
+		update post set use_yn='no' where postnum = #{postnum}
+	</update>
+	
 	<!-- 게시글 댓글 등록-->
 	<insert id="insertReply" parameterType="replyVo">
-		insert into reply values(reply_seq.nextval,#{r_content},sysdate,#{userid},#{postnum})
+		insert into reply values(reply_seq.nextval,#{r_content},sysdate,#{userid},#{postnum},'yes')
 	</insert>
 	
+	<!-- 게시글 댓글 삭제 -->
+	<update id="deleteReply" parameterType="replyVo">
+		update reply set use_yn='no' where REPLYNUM = #{replynum}
+	</update>
 	<!-- 게시글 댓글 조회 -->
 	<select id="replyList" parameterType="int" resultType="replyVo">
 		select * from reply where postnum = #{postnum}
 	</select>
 	
+
 
 	<!-- ####################################게시판############################################# -->
 
@@ -125,10 +135,48 @@ from
 			where rn >=(#{page}-1)*#{pageSize} + 1 and rn <=#{page}*#{pageSize}
 			]]>
 	</select>
-	<!-- 게시판 수정 -->
 	
+	<!-- 게시판 수정 -->
 	<update id="updateBoard" parameterType="boardVo">
 		update board set use_yn = #{use_yn}, boardname = #{boardname} where boardnum = #{boardnum}
 	</update>
+	
+<!-- #################################### 파일 ############################################# -->
+	<!-- 파일 목록가져오기 -->
+	<select id="fileList" parameterType="int" resultType="fileVo">
+		select * from attachment where postnum = #{postnum}
+	</select>
+	
+	<!-- 파일 다운로드 -->
+	<select id="FileDown" parameterType="int" resultType="fileVo">
+		select * from attachment where attachmentid = #{attachmentid}
+	</select>
+	
+	<!-- 파일갯수 -->
+	<select id="fileCnt" resultType="int">
+			select count(*) from attachment
+	</select>
+	
+	<!-- 파일등록 -->
+	<insert id="insertFile" parameterType="fileVo">
+		<![CDATA[
+			insert into attachment (attachmentid, postnum, attach_path, attach_name) 
+			values (FILE_SEQ.NEXTVAL,( select max (postnum) from post), #{attach_path} , #{attach_name})
+		]]>
+	</insert>
+	
+	<!-- 파일수정등록 -->
+	<insert id="insertFileEdit" parameterType="fileVo">
+		<![CDATA[
+			insert into attachment (attachmentid, postnum, attach_path, attach_name) 
+			values (FILE_SEQ.NEXTVAL,#{postnum} , #{attach_path} , #{attach_name})
+		]]>
+	</insert>
+	
+	<!-- 파일삭제 -->
+	<delete id="deleteFile" parameterType="int" >
+		delete from attachment where attachmentid=#{attachmentid}
+	</delete>
+	
 
 </mapper>
