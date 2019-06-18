@@ -7,6 +7,32 @@ public class AttachmentVo {
 	private String attach_name;	// 원래파일명
 	
 	
+	@Override
+	public String toString() {
+		return "AttachmentVo [attachmentid=" + attachmentid + ", postnum="
+				+ postnum + ", attach_path=" + attach_path + ", attach_name="
+				+ attach_name + "]";
+	}
+
+	
+	public AttachmentVo() {
+		
+	}
+
+
+	public AttachmentVo(int postnum, String attach_path, String attach_name) {
+		super();
+		this.postnum = postnum;
+		this.attach_path = attach_path;
+		this.attach_name = attach_name;
+	}
+
+	public AttachmentVo(String attach_path, String attach_name) {
+		super();
+		this.attach_path = attach_path;
+		this.attach_name = attach_name;
+	}
+	
 	public int getAttachmentid() {
 		return attachmentid;
 	}

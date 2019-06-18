@@ -60,6 +60,14 @@ public class PostVo {
 		
 	}
 	
+	
+	
+	public PostVo(String post_title, String p_content) {
+		super();
+		this.post_title = post_title;
+		this.p_content = p_content;
+	}
+
 	public PostVo(int boardnum, String post_title, String p_content,
 			String userid) {
 		super();

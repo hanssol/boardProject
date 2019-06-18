@@ -1,11 +1,13 @@
 package kr.or.yhs.board.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import kr.or.yhs.board.dao.BoardDao;
 import kr.or.yhs.board.dao.IBoardDao;
+import kr.or.yhs.board.model.AttachmentVo;
 import kr.or.yhs.board.model.BoardVo;
 import kr.or.yhs.board.model.PostVo;
 import kr.or.yhs.board.model.ReplyVo;
@@ -97,6 +99,40 @@ public class BoardService implements IBoardService{
 	@Override
 	public List<ReplyVo> replyList(int postnum) {
 		return dao.replyList(postnum);
+	}
+	@Override
+	public int deletePost(PostVo postVo) {
+		return dao.deletePost(postVo);
+	}
+	@Override
+	public int deleteReply(int replynum) {
+		return dao.deleteReply(replynum);
+	}
+	@Override
+	public List<AttachmentVo> fileList(int postnum) {
+		List<AttachmentVo> fileList = new ArrayList<AttachmentVo>();
+		fileList = dao.fileList(postnum);
+		return fileList;
+	}
+	@Override
+	public AttachmentVo fileDown(int attachmentid) {
+		return dao.fileDown(attachmentid);
+	}
+	@Override
+	public int fileCnt() {
+		return dao.fileCnt();
+	}
+	@Override
+	public int insertFile(AttachmentVo fileVo) {
+		return dao.insertFile(fileVo);
+	}
+	@Override
+	public int insertFileEdit(AttachmentVo fileVo) {
+		return dao.insertFileEdit(fileVo);
+	}
+	@Override
+	public int deleteFile(int attachmentid) {
+		return dao.deleteFile(attachmentid);
 	}
 	
 }

@@ -2,6 +2,7 @@ package kr.or.yhs.board.dao;
 
 import java.util.List;
 
+import kr.or.yhs.board.model.AttachmentVo;
 import kr.or.yhs.board.model.BoardVo;
 import kr.or.yhs.board.model.PostVo;
 import kr.or.yhs.board.model.ReplyVo;
@@ -70,9 +71,22 @@ public interface IBoardDao {
 	
 	List<ReplyVo> replyList(int postnum);
 	
+	int deletePost(PostVo postVo);
 	
+	int deleteReply(int replynum);
 	
+	//////////////////////////////////////////파일//////////////////////////////////////////////////////////
+	List<AttachmentVo> fileList(int postnum);
 	
+	AttachmentVo fileDown(int attachmentid);
+	
+	int fileCnt();
+	
+	int insertFile(AttachmentVo fileVo);
+	
+	int insertFileEdit(AttachmentVo fileVo);
+	
+	int deleteFile(int attachmentid);
 	
 	////////////////////////////////////////// 게시판 //////////////////////////////////////////////////////////
 	

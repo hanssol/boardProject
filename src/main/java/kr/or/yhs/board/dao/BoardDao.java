@@ -1,5 +1,6 @@
 package kr.or.yhs.board.dao;
 
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -7,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.qos.logback.core.db.dialect.MySQLDialect;
+import kr.or.yhs.board.model.AttachmentVo;
 import kr.or.yhs.board.model.BoardVo;
 import kr.or.yhs.board.model.PostVo;
 import kr.or.yhs.board.model.ReplyVo;
@@ -151,6 +154,75 @@ public class BoardDao implements IBoardDao{
 		List<ReplyVo> replyList = sqlSession.selectList("board.replyList",postnum);
 		sqlSession.close();
 		return replyList;
+	}
+
+	@Override
+	public int deletePost(PostVo postVo) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int deleteCnt = sqlSession.update("board.deletPost",postVo);
+		sqlSession.commit();
+		sqlSession.close();
+		return deleteCnt;
+	}
+
+	@Override
+	public int deleteReply(int replynum) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int deleteCnt = sqlSession.update("board.deleteReply",replynum);
+		sqlSession.commit();
+		sqlSession.close();
+		return deleteCnt;
+	}
+
+	@Override
+	public List<AttachmentVo> fileList(int postnum) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		List<AttachmentVo> fileList = sqlSession.selectList("board.fileList",postnum);
+		sqlSession.close();
+		return fileList;
+	}
+
+	@Override
+	public AttachmentVo fileDown(int attachmentid) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		AttachmentVo filedown = sqlSession.selectOne("board.FileDown",attachmentid);
+		sqlSession.close();
+		return filedown;
+	}
+
+	@Override
+	public int fileCnt() {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int fileCnt = (Integer)sqlSession.selectOne("board.fileCnt");
+		sqlSession.close();
+		return fileCnt;
+	}
+
+	@Override
+	public int insertFile(AttachmentVo fileVo) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int fileCnt = sqlSession.update("board.insertFile",fileVo);
+		sqlSession.commit();
+		sqlSession.close();
+		return fileCnt;
+	}
+
+	@Override
+	public int insertFileEdit(AttachmentVo fileVo) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int fileCnt = sqlSession.update("board.insertFileEdit",fileVo);
+		sqlSession.commit();
+		sqlSession.close();
+		return fileCnt;
+	}
+
+	@Override
+	public int deleteFile(int attachmentid) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSession();
+		int deleteCnt=sqlSession.delete("board.deleteFile",attachmentid);
+		sqlSession.commit();
+		sqlSession.close();
+		return deleteCnt;
 	}
 	
 	
