@@ -1,6 +1,5 @@
 package kr.or.yhs.board.dao;
 
-import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ch.qos.logback.core.db.dialect.MySQLDialect;
 import kr.or.yhs.board.model.BoardVo;
 import kr.or.yhs.board.model.PostVo;
 import kr.or.yhs.board.model.ReplyVo;
